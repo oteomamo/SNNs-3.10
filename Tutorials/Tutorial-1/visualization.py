@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import snntorch.spikeplot as splt
 from IPython.display import display, HTML
 import torch  # Assuming spike_data and targets_it are passed as arguments
+from mnist_setup import convert_to_time
 
-def visualize_spike_data(spike_data, targets_it, num_steps=100, ffmpeg_path=None):
+def visualize_spike_data(spike_data, targets_it, num_steps=100, ffmpeg_path=None, gain=0):
     """Visualize and animate spike data."""
     # Index into a single sample from the batch dimension
     spike_data_sample = spike_data[:, 0, 0]
@@ -30,6 +31,48 @@ def visualize_spike_data(spike_data, targets_it, num_steps=100, ffmpeg_path=None
     plt.imshow(spike_data_sample.mean(axis=0).reshape((28,-1)).cpu(), cmap='binary')
     plt.axis('off')
     plt.title(f'Average Spike Visualization')
+    plt.title('Gain = 1')
+
+    # plt.subplot(1,2,2)
+    # plt.imshow(spike_data_sample2.mean(axis=0).reshape((28,-1)).cpu(), cmap='binary')
+    # plt.axis('off')
+    # plt.title(f'Spike Visualization With Grain = 0.25')
+    # plt.title('Gain = 0.25')
 
     plt.show()
 
+    # Reshape spike_data_sample for raster plot
+    # spike_data_sample2 = spike_data_sample.reshape((num_steps, -1))
+
+    # Generate raster plot
+    # fig = plt.figure(facecolor="w", figsize=(10, 5))
+    # ax = fig.add_subplot(111)
+    # splt.raster(spike_data_sample2, ax, s=1.5, c="black")
+
+    # plt.title("Input Layer")
+    # plt.xlabel("Time step")
+    # plt.ylabel("Neuron Number")
+    # plt.show()
+    # idx = 210  # index into the 210th neuron
+
+    # fig = plt.figure(facecolor="w", figsize=(8, 1))
+    # ax = fig.add_subplot(111)
+
+    # splt.raster(spike_data_sample2.reshape(num_steps, -1)[:, idx].unsqueeze(1), ax, s=100, c="black", marker="|")
+
+    # plt.title("Input Neuron")
+    # plt.xlabel("Time step")
+    # plt.yticks([])
+    # plt.show()
+
+def visualize_latency_coding():
+    raw_input = torch.arange(0, 5, 0.05) # tensor from 0 to 5
+    spike_times = convert_to_time(raw_input)  # Assuming convert_to_time is accessible
+
+    plt.plot(raw_input, spike_times)
+    plt.xlabel('Input Value')
+    plt.ylabel('Spike Time (s)')
+    plt.title('Latency Coding Visualization')
+    plt.show()
+
+#  visualize_latency_coding()
