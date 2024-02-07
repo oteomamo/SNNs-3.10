@@ -2,7 +2,6 @@ import torch
 from snntorch import spikegen
 
 def create_rate_coded_vector(num_steps, p_spike=0.5):
-    """Create and rate code a vector with a specified spike probability."""
     # create vector filled with p_spike
     raw_vector = torch.ones(num_steps) * p_spike
 
@@ -17,5 +16,5 @@ def rate_code_mnist_data(train_loader, num_steps):
 
     # Spiking Data
     spike_data = spikegen.rate(data_it, num_steps=num_steps)
-    # print(spike_data.size())
+    print(spike_data.size())
     return spike_data, targets_it

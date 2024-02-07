@@ -2,7 +2,7 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import rate_coding  # Make sure to have rate_coding.py in the same directory
-from visualization import visualize_spike_data, visualize_latency_coding
+from visualization import visualize_spike_data, visualize_latency_coding, visualize_raster_plot_latency, visualize_delta_modulation
 from mnist_setup import convert_to_time
 
 # Training Parameters
@@ -35,7 +35,7 @@ rate_coding.rate_code_mnist_data(train_loader, num_steps)
 # Visualization and Animation
 # Assuming spike_data and targets_it are available from the rate coding part
 # visualize_spike_data(spike_data, targets_it, num_steps=100, gain=1.0)  # For original gain
-visualize_spike_data(spike_data, targets_it, 100, ffmpeg_path='/usr/bin/ffmpeg', gain=0)
+visualize_spike_data(spike_data, targets_it, 100, ffmpeg_path='/usr/bin/ffmpeg', gain=0.25)
 # visualize_spike_data(spike_data, targets_it, num_steps=100)  # Visualize with default settings
 # visualize_spike_data(spike_data, targets_it, num_steps=100, gain=0.25)  # For reduced gain
 
@@ -46,4 +46,24 @@ for data, target in train_loader:
     spike_times = convert_to_time(data, tau=5, threshold=0.01)
    
 visualize_latency_coding()
+
+
+
+
+num_steps = 100
+tau = 5
+threshold = 0.01
+clip = True
+normalize = True
+linear = True
+spike_data_sample3 = spike_data[:, 0].view(num_steps, -1)
+
+# Call the visualization function for the raster plot
+# visualize_raster_plot_latency(spike_data_sample3, num_steps)
+
+visualize_raster_plot_latency(spike_data_sample3, num_steps=num_steps, tau=tau, threshold=threshold, clip=clip, normalize=normalize, linear=linear)
+
+
+visualize_delta_modulation()
+
 
