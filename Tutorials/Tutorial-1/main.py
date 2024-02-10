@@ -27,7 +27,7 @@ spike_data, targets_it = rate_coding.rate_code_mnist_data(train_loader, num_step
 
 
 # Rate coding experiments
-rate_coding.create_rate_coded_vector(10)  # Example with num_steps=10
+# rate_coding.create_rate_coded_vector(10)  # Example with num_steps=10
 rate_coding.create_rate_coded_vector(num_steps)  # Example with num_steps=100
 rate_coding.rate_code_mnist_data(train_loader, num_steps)
 
