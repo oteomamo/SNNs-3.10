@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import snntorch.spikeplot as splt
 from IPython.display import display, HTML
 import snntorch.spikegen as spikegen
-import torch  # Assuming spike_data and targets_it are passed as arguments
+import torch  
 from mnist_setup import convert_to_time
 
 def visualize_spike_data(spike_data, targets_it, num_steps=100, ffmpeg_path=None, gain=0.25):
