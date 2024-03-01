@@ -1,5 +1,3 @@
-!pip install tonic --quiet 
-!pip install snntorch --quiet
 
 import tonic
 
@@ -27,7 +25,7 @@ def load_sample_simple():
     for i in range(100):
         events, target = trainset[i]
 
-%timeit -o load_sample_simple()
+timeit -o load_sample_simple()
 
 
 from torch.utils.data import DataLoader
